@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace表示命名空间，用来标识该Mapper文件-->
+<mapper namespace="mapper.MailMapper">
+	<!-- 增 -->
+	<insert id="insert" parameterType="Mail" >
+		INSERT INTO tb_mail(id,fromID,toID,titile,content,attachment,isread,createTime,isDelete) 
+					VALUES ( #{id},#{fromID},#{toID},#{titile},#{content},#{attachment},#{isread},#{createTime},#{isDelete});
+	</insert>
+	<!-- 删 -->
+	<delete id="delete" parameterType="Mail">
+		delete from tb_mail where id=#{id}
+	</delete>
+	<!-- 改 -->
+	<update id="update" parameterType="Mail">
+		update tb_mail set titile=#{titile},content=#{content},attachment=#{attachment},isread=#{isread},createTime=#{createTime},isDelete=#{isDelete} where id=#{id}
+	</update>
+	
+	<!-- 利用id查询邮件 -->
+	<select id="selectById" parameterType="Mail" resultType="Mail">
+		select * from tb_mail where id=#{id}
+	</select>
+	
+	<!-- 利用fromID查询邮件 -->
+	<select id="selectByFromId" parameterType="User" resultType="Mail">
+		select * from tb_mail where fromID=#{id}
+	</select>
+	
+	<!-- 利用id查询邮件 -->
+	<select id="selectByToId" parameterType="User" resultType="Mail">
+		select * from tb_mail where toID=#{id}
+	</select>
+	
+	<!-- 查询所有邮件信息 -->
+	<select id="selectAll" resultType="Mail">
+		select * from tb_mail  
+	</select>
+	
+	
+	
+	
+	
+	
+
+</mapper>

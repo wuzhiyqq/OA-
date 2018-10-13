@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd" >
+	
+	<!-- 组件扫描 -->
+	<context:component-scan base-package="service"></context:component-scan>
+	<!-- 加载外部properties属性文件 -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	
+	<!-- C3p0数据源创建 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}"></property>
+ 		<property name="jdbcUrl" value="${jdbc.url}"></property>
+ 		<property name="user" value="${jdbc.username}"></property>
+ 		<property name="password" value="${jdbc.password}"></property>
+	</bean>	
+	
+	<!-- SqlSessionFactoryBean来创建sqlSession -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 生成connection对象 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 引入mybatis-config.xml文件 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<!-- 引入mapper文件 -->
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:mapper/**.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- mapper接口代理对象创建由spring完成 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 扫描mapper包下接口,生成代理对象 -->
+		<property name="basePackage" value="mapper"></property>
+		<!-- 引入sqlsessionFactory -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- JDBC事务管理平台 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 开启支持事务的驱动Proxy-target-class如果true表示CGLIB创建对象,false表示使用JDK创建 -->
+	<tx:annotation-driven transaction-manager="txManager"></tx:annotation-driven>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</beans>

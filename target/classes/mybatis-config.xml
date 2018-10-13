@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">	
+<configuration>
+	
+	<!-- 全局功能配置 -->
+	<settings>
+		<!-- 指定日志厂商为LOG4J -->
+		<setting name="logImpl" value="LOG4J"/>		
+	</settings>
+	
+	<!-- 别名配置 -->
+	<typeAliases>
+		<!-- 给单独的类起别名 -->
+		<!-- <typeAlias type="domain.User" alias="User"/> -->
+		<!-- 默认把类名作为该类的别名(大小写没有影响) -->
+		<package name="domain"/> 
+	</typeAliases>
+	
+</configuration>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace表示命名空间，用来标识该Mapper文件-->
+<mapper namespace="mapper.UserMapper">
+	<!-- 增 -->
+	<insert id="insert" parameterType="User" >
+		insert into tb_user(username,password,nickname,age,sex,phone,address,isadmin) 
+			values(#{username},#{password},#{nickname},#{age},#{sex},#{phone},#{address},#{isadmin})
+	</insert>
+	<!-- 删 -->
+	<delete id="delete" parameterType="User">
+		delete from tb_user where id=#{id}
+	</delete>
+	<!-- 改 -->
+	<update id="update" parameterType="User">
+		update tb_user set username=#{username},password=#{password},nickname=#{nickname},age=#{age},sex=#{sex},phone=#{phone},address=#{address},isadmin=#{isadmin} where id=#{id}
+	</update>
+	
+	<!-- 利用id查询用户 -->
+	<select id="selectById" parameterType="User" resultType="User">
+		select * from tb_user where id=#{id}
+	</select>
+	
+	<!-- 查询所有用户信息 -->
+	<select id="selectAll" resultType="User">
+		select * from tb_user  
+	</select>
+	
+	<!-- 利用用户名进行查询 -->
+	<select id="selectByName" parameterType="User" resultType="User"> 
+		select * from tb_user where username=#{username}
+	</select>
+	
+	
+	
+	
+
+</mapper>

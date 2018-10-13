@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace表示命名空间，用来标识该Mapper文件-->
+<mapper namespace="mapper.LeaveMapper">
+
+	<!-- 增 -->
+	<insert id="insert" parameterType="Leave" >
+		insert into tb_leave(applyID,approveID,startTime,endTime,days,reason,state) 
+			values(#{applyID},#{approveID},#{startTime},#{endTime},#{days},#{reason},#{state})
+	</insert>
+	<!-- 删 -->
+	<delete id="delete" parameterType="Leave">
+		delete from tb_leave where id=#{id}
+	</delete>
+	<!-- 改 -->
+	<update id="update" parameterType="Leave">
+		update tb_leave set applyID=#{applyID},approveID=#{approveID},startTime=#{startTime},endTime=#{endTime},days=#{days},reason=#{reason},state=#{state} where id=#{id}
+	</update>
+	
+	<!-- 利用id查询用户 -->
+	<select id="selectById" parameterType="Leave" resultType="Leave">
+		select * from tb_leave where id=#{id}
+	</select>
+	
+	<!-- 查询所有用户信息 -->
+	<select id="selectByAll" resultType="Leave">
+		select * from tb_leave  
+	</select>
+	
+	
+	
+	
+	
+	
+
+</mapper>
